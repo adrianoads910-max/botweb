@@ -179,9 +179,24 @@ STATUS_HTML = """
 {% endif %}
 """
 # --- FIM DO NOVO CÓDIGO ---
+# Página inicial (menu principal)
+@app.route("/")
+def home():
+    html_home = """
+    <h1>⚔️ Aventura na Montanha do Cume de Fogo ⚔️</h1>
+    <p>Bem-vindo, aventureiro!</p>
+    <ul>
+        <li><a href='/criar'>➕ Criar Personagem</a></li>
+        {% if player_nome %}
+            <li><a href='/aventura'>🚀 Continuar Aventura</a></li>
+        {% endif %}
+    </ul>
+    """
+    return render_template_string(html_home)
 
+# Página de criação de personagem
 # Página principal: criação de personagem
-@app.route("/", methods=["GET", "POST"])
+@app.route("/criar", methods=["GET", "POST"])
 def index():
      # Limpa a sessão antiga para criar um novo personagem
     if request.method == "GET":
